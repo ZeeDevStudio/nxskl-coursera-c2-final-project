@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeeshan Ali | Portfolio</title>
+  <style>
+    :root{--ink:#182238;--muted:#667085;--primary:#4263eb;--bg:#f7f9fc;--card:#fff;--line:#e6eaf0}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:30px;padding:16px 6%;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.brand{font-size:1.25rem;font-weight:800;color:var(--primary);text-decoration:none;margin-right:auto}.topbar nav{display:flex;gap:25px}.topbar nav a{color:var(--ink);text-decoration:none;font-weight:600}.topbar nav a:hover{font-weight:800;text-decoration:underline}.home-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--primary);color:#fff;text-decoration:none;font-size:21px}
+.section{max-width:1120px;margin:auto;padding:88px 6%}.hero{display:flex;align-items:center;gap:70px;min-height:620px}.profile-image{flex:0 0 270px}.profile-image svg{width:100%;filter:drop-shadow(0 18px 30px rgba(34,54,100,.12))}.hero-copy{max-width:650px}.eyebrow{font-size:.78rem;letter-spacing:.16em;font-weight:800;color:var(--primary);margin:0 0 10px}.hero h1{font-size:clamp(2.6rem,6vw,4.5rem);line-height:1.05;margin:0 0 20px}.hero h1 span{color:var(--primary)}.summary{font-size:1.12rem;color:var(--muted);max-width:620px}.button{display:inline-block;margin-top:14px;border:0;border-radius:10px;background:var(--primary);color:#fff;padding:12px 20px;font-weight:700;text-decoration:none;cursor:pointer}.button:hover{transform:translateY(-1px)}
+.section-heading{text-align:center;margin-bottom:35px}.section-heading h2{font-size:2.3rem;margin:0}.soft-section{background:#eef3ff;max-width:none;padding-left:calc((100% - 1120px)/2 + 6%);padding-right:calc((100% - 1120px)/2 + 6%)}.project-grid,.skills-grid,.recommendation-grid{display:grid;gap:22px}.project-grid{grid-template-columns:repeat(3,1fr)}.skills-grid{grid-template-columns:repeat(5,1fr)}.recommendation-grid{grid-template-columns:repeat(3,1fr)}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:0 8px 28px rgba(27,39,64,.05)}.project-card{min-height:245px}.project-number{font-size:.8rem;font-weight:800;color:var(--primary)}.project-card h3{font-size:1.35rem;margin:8px 0}.project-card p,.skill p,.recommendation p{color:var(--muted)}.tag{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:700;padding:5px 9px;border-radius:20px;background:#edf1ff;color:var(--primary)}.skill{display:flex;align-items:center;gap:13px;padding:18px}.skill h3{margin:0;font-size:1rem}.skill p{margin:0;font-size:.75rem}.logo{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:1.35rem;flex:none}.html-logo{background:#e34f26;color:#fff}.css-logo{background:#1572b6;color:#fff}.js-logo{background:#f7df1e;color:#111}.react-logo{background:#20232a;color:#61dafb;font-size:1.8rem}.git-logo{background:#f05032;color:#fff}.recommendation{position:relative}.quote{font-size:3rem;color:var(--primary);line-height:.7}.recommendation strong{font-size:.9rem}.recommendation-form{max-width:700px;margin:40px auto 0}.recommendation-form h3{margin-top:0}.recommendation-form label{display:block;font-weight:700;margin:12px 0 6px}.recommendation-form textarea,.recommendation-form input{width:100%;border:1px solid #ccd3df;border-radius:9px;padding:12px;font:inherit;background:#fff}.recommendation-form textarea:focus,.recommendation-form input:focus{outline:2px solid #b8c5ff;border-color:var(--primary)}.popup{position:fixed;inset:0;background:rgba(14,22,39,.55);display:grid;place-items:center;z-index:30}.popup[hidden]{display:none}.popup-box{position:relative;width:min(430px,90%);background:#fff;border-radius:20px;padding:38px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.2)}.close-popup{position:absolute;right:16px;top:10px;border:0;background:none;font-size:28px;cursor:pointer}.success-icon{margin:auto;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;background:#e8f7ee;color:#16834b;font-size:30px;font-weight:800}.popup-box h2{margin-bottom:5px}.popup-box p{color:var(--muted)}footer{text-align:center;padding:28px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+@media(max-width:850px){.topbar{gap:12px}.topbar nav{gap:12px;font-size:.85rem}.hero{flex-direction:column;text-align:center;padding-top:55px;gap:30px}.profile-image{flex-basis:auto;width:210px}.project-grid,.recommendation-grid{grid-template-columns:1fr}.skills-grid{grid-template-columns:repeat(2,1fr)}.soft-section{padding-left:6%;padding-right:6%}}
+@media(max-width:560px){.topbar{flex-wrap:wrap}.brand{width:100%}.topbar nav{order:3;width:100%;justify-content:space-between;overflow:auto}.skills-grid{grid-template-columns:1fr}.section{padding-top:65px;padding-bottom:65px}}
+
+  </style>
+  <script>
+    const form = document.getElementById('recommendation-form');
+const list = document.getElementById('recommendation-list');
+const popup = document.getElementById('popup');
+const closePopup = document.getElementById('close-popup');
+const popupOk = document.getElementById('popup-ok');
+
+// showPopup is called only after a new recommendation is successfully submitted.
+function showPopup() {
+  popup.hidden = false;
+  popupOk.focus();
+}
+
+function hidePopup() {
+  popup.hidden = true;
+}
+
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const message = document.getElementById('new-recommendation').value.trim();
+  const name = document.getElementById('recommender').value.trim();
+  if (!message || !name) return;
+
+  const article = document.createElement('article');
+  article.className = 'recommendation card';
+  article.innerHTML = `<div class="quote">“</div><p></p><strong></strong>`;
+  article.querySelector('p').textContent = message;
+  article.querySelector('strong').textContent = `— ${name}`;
+  list.appendChild(article);
+
+  form.reset();
+  showPopup();
+});
+
+closePopup.addEventListener('click', hidePopup);
+popupOk.addEventListener('click', hidePopup);
+popup.addEventListener('click', (event) => {
+  if (event.target === popup) hidePopup();
+});
+
+  </script>
+</head>
+<body id="home">
+  <header class="topbar">
+    <a class="brand" href="#home">Zeeshan Ali</a>
+    <nav aria-label="Main navigation">
+      <a href="#about">About Me</a>
+      <a href="#projects">Project Details</a>
+      <a href="#skills">Skills</a>
+      <a href="#recommendations">Recommendations</a>
+    </nav>
+    <a class="home-icon" href="#home" aria-label="Go to top" title="Home">⌂</a>
+  </header>
+
+  <main>
+    <section id="about" class="hero section">
+      <div class="profile-image" aria-label="Profile illustration" role="img">
+        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="120" cy="120" r="112" fill="#e8f0ff"/>
+          <circle cx="120" cy="92" r="42" fill="#5b7cfa"/>
+          <path d="M55 202c9-46 37-70 65-70s56 24 65 70" fill="#5b7cfa"/>
+          <circle cx="105" cy="87" r="5" fill="#fff"/>
+          <circle cx="135" cy="87" r="5" fill="#fff"/>
+          <path d="M103 108c11 9 23 9 34 0" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow">SOFTWARE ENGINEERING STUDENT</p>
+        <h1>Hello, I'm <span>Zeeshan Ali</span></h1>
+        <p class="summary">I am a software engineering student who enjoys building practical, user-friendly applications. I like turning ideas into clean web experiences and continuously improving my skills through real projects.</p>
+        <a class="button" href="#projects">View My Work</a>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">WHAT I'VE BUILT</p>
+        <h2>Project Details</h2>
+      </div>
+      <div class="project-grid">
+        <article class="card project-card"><div class="project-number">01</div><h3>Campus Connect</h3><p>A student-focused web application for sharing announcements, events, notes, and useful campus resources.</p><span class="tag">React • Node.js</span></article>
+        <article class="card project-card"><div class="project-number">02</div><h3>Tech Store</h3><p>A responsive e-commerce interface for browsing computer, mobile, networking, and audio accessories.</p><span class="tag">HTML • CSS • JavaScript</span></article>
+        <article class="card project-card"><div class="project-number">03</div><h3>System Health Monitor</h3><p>A desktop utility that presents storage health, system information, and useful diagnostics in one simple interface.</p><span class="tag">C# • .NET</span></article>
+      </div>
+    </section>
+
+    <section id="skills" class="section soft-section">
+      <div class="section-heading"><p class="eyebrow">MY TOOLKIT</p><h2>Skills</h2></div>
+      <div class="skills-grid">
+        <div class="skill card"><div class="logo html-logo">5</div><div><h3>HTML5</h3><p>Semantic web structure</p></div></div>
+        <div class="skill card"><div class="logo css-logo">3</div><div><h3>CSS3</h3><p>Responsive styling</p></div></div>
+        <div class="skill card"><div class="logo js-logo">JS</div><div><h3>JavaScript</h3><p>Interactive web apps</p></div></div>
+        <div class="skill card"><div class="logo react-logo">⚛</div><div><h3>React</h3><p>Component-based UI</p></div></div>
+        <div class="skill card"><div class="logo git-logo">◆</div><div><h3>Git</h3><p>Version control</p></div></div>
+      </div>
+    </section>
+
+    <section id="recommendations" class="section">
+      <div class="section-heading"><p class="eyebrow">WHAT OTHERS SAY</p><h2>Recommendations</h2></div>
+      <div id="recommendation-list" class="recommendation-grid">
+        <article class="recommendation card"><div class="quote">“</div><p>I is dependable, curious, and always willing to learn. Their ability to break a difficult problem into smaller tasks makes teamwork much easier.</p><strong>— Ayesha, Project Teammate</strong></article>
+        <article class="recommendation card"><div class="quote">“</div><p>I was impressed by the way I focused on both functionality and presentation. They consistently delivered clear and practical solutions.</p><strong>— Hamza, Classmate</strong></article>
+        <article class="recommendation card"><div class="quote">“</div><p>I takes feedback positively and improves quickly. I would gladly work with them again on a software project.</p><strong>— Sara, Team Lead</strong></article>
+      </div>
+
+      <form id="recommendation-form" class="recommendation-form card">
+        <h3>Add a Recommendation</h3>
+        <label for="new-recommendation">Your message</label>
+        <textarea id="new-recommendation" name="recommendation" rows="4" placeholder="Write a short recommendation..." required></textarea>
+        <label for="recommender">Zeeshan Ali</label>
+        <input id="recommender" name="recommender" type="text" placeholder="Zeeshan Ali" required>
+        <button type="submit" class="button">Submit Recommendation</button>
+      </form>
+    </section>
+  </main>
+
+  <div id="popup" class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" hidden>
+    <div class="popup-box">
+      <button id="close-popup" class="close-popup" aria-label="Close">×</button>
+      <div class="success-icon">✓</div>
+      <h2 id="popup-title">Thank you!</h2>
+      <p>Your recommendation was added successfully.</p>
+      <button id="popup-ok" class="button">OK</button>
+    </div>
+  </div>
+
+  <footer>© 2026 Zeeshan Ali • Single Page Portfolio</footer>
+  <script src="script.js"></script>
+</body>
+</html>
